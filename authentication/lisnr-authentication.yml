@@ -1,0 +1,66 @@
+generated: '2026-07-19'
+method: searched
+source: https://portal.lisnr.com/pages/developer-resources/api/api.html
+docs: https://portal.lisnr.com/developer-resources/api
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  oauth2_flows: []
+  note: >-
+    LISNR uses no OAuth. Both the Tones Service API and the Portal API authenticate with a JWT presented in
+    the Authorization header behind the literal prefix "JWT " (not "Bearer"). There are two distinct token
+    classes, both minted per LISNR application in the Portal.
+token_classes:
+- name: API Token
+  used_by: LISNR Tones Service API
+  minted_at: https://portal.lisnr.com/apps/{app_id}/api-tokens
+  managed_by:
+  - openapi/lisnr-portal-openapi-derived.json#listApiTokens
+  - openapi/lisnr-portal-openapi-derived.json#createApiToken
+  - openapi/lisnr-portal-openapi-derived.json#deleteApiToken
+  description: >-
+    Authorizes external applications to call LISNR APIs on behalf of a specific LISNR application. The
+    transaction type associated with a generated tone is inherited from the app the API token was created
+    under, so accounts with multiple transaction types must select the correct app before minting a token.
+  handling: >-
+    LISNR documents API tokens as being as sensitive as passwords. They must not be shared or distributed to
+    untrusted parties, and must not be used from a website or any other publicly available project.
+- name: SDK Token
+  used_by: Radius / Radius 3 / Point / legacy / SDA client SDKs
+  minted_at: https://portal.lisnr.com/apps/{app_id}/sdk-tokens
+  managed_by:
+  - openapi/lisnr-portal-openapi-derived.json#listSdkTokens
+  - openapi/lisnr-portal-openapi-derived.json#createSdkToken
+  - openapi/lisnr-portal-openapi-derived.json#deleteSdkToken
+  description: >-
+    Initializes the Radius object inside a device SDK. A receiving application must initialize with an SDK
+    token issued from the same account as the API token that created an encrypted tone, otherwise it cannot
+    demodulate that tone.
+- name: User session JWT
+  used_by: LISNR Portal API
+  obtained_via: openapi/lisnr-portal-openapi-derived.json#login
+  description: >-
+    Username and password are exchanged at POST /v2/auth/login for a JWT that the Portal then sends on every
+    subsequent call in the Authorization header.
+schemes:
+- name: jwtToken
+  type: apiKey
+  in: header
+  parameter: Authorization
+  value_format: JWT <token>
+  description: >-
+    An API Token prefixed by "JWT". Applied to the single Tones Service operation and to every authenticated
+    Portal API operation.
+  sources:
+  - openapi/lisnr-tones-openapi-original.json
+  - openapi/lisnr-portal-openapi-derived.json
+failure_modes:
+- status: 401
+  meaning: Authentication credentials not provided, or credentials are not valid.
+- status: 403
+  meaning: Forbidden — user is not authorized to access this resource with an explicit deny.
+related:
+- conventions/lisnr-conventions.yml
+- errors/lisnr-problem-types.yml
