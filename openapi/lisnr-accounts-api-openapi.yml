@@ -1,0 +1,64 @@
+openapi: 3.0.3
+info:
+  title: LISNR Portal API (observed) Accounts API
+  version: v2
+  description: 'Unofficial OpenAPI description of the LISNR Portal API, DERIVED by the API Evangelist enrichment pipeline from the first-party LISNR Portal single-page application bundle (https://portal.lisnr.com/scripts/script.865ef81c.js, build 2025-12-16). Paths, HTTP methods, path/query parameters, the `Authorization: JWT <token>` scheme and the `{ result: ... }` response envelope are all OBSERVED from that first-party client. Request and response body schemas are NOT described here because LISNR does not publish them; nothing has been invented. LISNR publishes an official OpenAPI only for the Tones Service API (see openapi/lisnr-tones-openapi-original.json).'
+  contact:
+    name: LISNR Technical Support
+    email: techsupport@lisnr.com
+  x-apievangelist-provenance:
+    method: derived
+    source: https://portal.lisnr.com/scripts/script.865ef81c.js
+    config_source: https://portal.lisnr.com/config.js
+    build: '2025-12-16T18:23:14Z'
+    note: Observed client surface, not a LISNR-published specification.
+servers:
+- url: https://api.lisnr.com
+  description: LISNR Portal API (apiBaseURL from portal config.js)
+security:
+- jwtToken: []
+tags:
+- name: Accounts
+paths:
+  /v2/accounts:
+    get:
+      operationId: listAccounts
+      summary: Get the authenticated user's account
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: Success. Payload is returned on the `result` property of the response envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '401':
+          description: Authentication credentials were not provided, or are not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+      description: Returns the account, including the licensed products list (legacy, radius, radius3, point, sda).
+      security:
+      - jwtToken: []
+components:
+  schemas:
+    Envelope:
+      type: object
+      description: LISNR response envelope. Successful payloads and error messages are both carried on `result`.
+      properties:
+        result:
+          description: Response payload; an object, an array, or an object carrying a `message` string on errors.
+  securitySchemes:
+    jwtToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'A LISNR JWT prefixed with the literal string `JWT `, e.g. `Authorization: JWT eyJ...`.'
