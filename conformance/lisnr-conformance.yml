@@ -1,0 +1,105 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lisnr-tones-openapi-original.json
+sources:
+- openapi/lisnr-tones-openapi-original.json
+- openapi/lisnr-portal-openapi-derived.json
+- conventions/lisnr-conventions.yml
+- authentication/lisnr-authentication.yml
+- security/lisnr-domain-security.yml
+note: >-
+  Standards conformance derived from the LISNR-published Tones Service OpenAPI, the observed Portal client,
+  and live probes. LISNR publishes no compliance or certification claims (SOC 2, ISO 27001, PCI DSS, HIPAA,
+  FedRAMP) on any reachable surface, and no trust center exists, so no Compliance pointer is emitted.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    LISNR publishes an OpenAPI 3.0.1 document for the Tones Service API, rendered with ReDoc 2.0.0-rc.45 at
+    portal.lisnr.com/assets/tones-docs/tones-docs.html.
+  caveats:
+  - >-
+    The document is not strictly valid: it $refs #/components/APITokenHeader and #/components/PayloadProperty,
+    which sit at the root of components rather than under components/parameters and components/schemas. It
+    also omits info.version, operationId, and tags. These are corrected in overlays/lisnr-tones-overlay.yaml.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security scheme in any spec and no OAuth documented; authentication is a header API key.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on api.lisnr.com; no OIDC surface.
+- id: rfc6750-bearer
+  conforms: false
+  evidence: >-
+    The Authorization header carries the literal prefix "JWT " rather than the RFC 6750 "Bearer " prefix, so
+    the scheme is a header API key rather than a conformant bearer token, even though the credential is a JWT.
+- id: rfc7519-jwt
+  conforms: true
+  evidence: >-
+    Credentials are documented as JWTs by LISNR ("An API Token prefixed by JWT", example "JWT eyJ..."), and
+    the observed Portal client sends them unchanged.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are application/json objects carrying a single `message` string, not application/problem+json.
+    See errors/lisnr-problem-types.yml.
+- id: json-api
+  conforms: false
+  evidence: >-
+    Responses use a proprietary `{ "result": ... }` envelope on the Portal API and a flat object on Tones.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No /.well-known/security.txt on any LISNR host. See well-known/lisnr-well-known.yml.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation headers and no published deprecation policy. See lifecycle/lisnr-lifecycle.yml.
+- id: idempotency-key
+  conforms: false
+  evidence: >-
+    No idempotency key header on either surface. Tone creation is a non-idempotent POST that mints a new
+    artifact per accepted call.
+- id: cursor-pagination
+  conforms: true
+  evidence: >-
+    The Portal API pages collections with limit + starting_after, a cursor scheme. Observed on /v2/invoices.
+- id: rate-limiting
+  conforms: partial
+  evidence: >-
+    A 429 "Too many requests." response is documented for the Tones Service API, so limits are enforced, but
+    no RateLimit or Retry-After headers and no published limit values accompany it.
+- id: tls-1.3
+  conforms: true
+  evidence: lisnr.com, portal.lisnr.com and tones.lisnr.com all negotiate TLSv1.3.
+- id: hsts
+  conforms: false
+  evidence: No Strict-Transport-Security header on lisnr.com or portal.lisnr.com.
+- id: dnssec
+  conforms: false
+  evidence: lisnr.com is not DNSSEC signed.
+- id: caa
+  conforms: false
+  evidence: No CAA records on lisnr.com.
+- id: spf
+  conforms: true
+  evidence: SPF record present on lisnr.com.
+- id: dmarc
+  conforms: partial
+  evidence: DMARC record present on lisnr.com with policy p=quarantine (not reject).
+- id: aes-256
+  conforms: true
+  evidence: >-
+    The Tones Service documents AES-256 encryption of the tone payload via the `encrypt` property; the
+    receiver must hold an SDK token from the same account to demodulate.
+- id: rfc4122-uuid
+  conforms: true
+  evidence: >-
+    ToneLock custom values must be an RFC 4122 compliant UUID; the Portal validates the 8-4-4-4-12 hex form
+    before submission.
+compliance_program:
+  published: false
+  certifications: []
+  trust_center: null
+  evidence: >-
+    trust.lisnr.com does not resolve. The marketing site at lisnr.com is behind a bot challenge and could
+    not be read, so an unpublished-on-the-open-web result here is bounded by that; nothing was found on any
+    machine-readable surface.

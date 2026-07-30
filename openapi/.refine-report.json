@@ -1,0 +1,35 @@
+{
+  "provider": "lisnr",
+  "sources": [
+    "lisnr-accounts-api-openapi.yml",
+    "lisnr-api-tokens-api-openapi.yml",
+    "lisnr-applications-api-openapi.yml",
+    "lisnr-authentication-api-openapi.yml",
+    "lisnr-billing-api-openapi.yml",
+    "lisnr-notifications-api-openapi.yml",
+    "lisnr-sdk-releases-api-openapi.yml",
+    "lisnr-sdk-tokens-api-openapi.yml",
+    "lisnr-tones-service-api-reference-api-openapi.yml",
+    "lisnr-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "lisnr-accounts-api-openapi.yml",
+    "lisnr-api-tokens-api-openapi.yml",
+    "lisnr-applications-api-openapi.yml",
+    "lisnr-authentication-api-openapi.yml",
+    "lisnr-billing-api-openapi.yml",
+    "lisnr-notifications-api-openapi.yml",
+    "lisnr-sdk-releases-api-openapi.yml",
+    "lisnr-sdk-tokens-api-openapi.yml",
+    "lisnr-tones-service-api-reference-api-openapi.yml",
+    "lisnr-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "lisnr-tones-service-api-reference-api-openapi.yml: dangling $ref: #/components/APITokenHeader",
+    "lisnr-tones-service-api-reference-api-openapi.yml: dangling $ref: #/components/PayloadProperty"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

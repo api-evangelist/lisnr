@@ -1,0 +1,257 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Tones Service API Reference",
+    "x-logo": {
+      "url": "https://lh3.googleusercontent.com/v89HEtbE-zGOkBwCmWf7zbG9BBtS22tgXzNSgZG4F3fqv90KqLo0yWO5D1PFUxGG-VSIVNgoxsWEVLLjA-pkHA=w205",
+      "href": "https://lisnr.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://tones.lisnr.com/"
+    }
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "summary": "Create a Tone",
+        "parameters": [
+          {
+            "$ref": "#/components/APITokenHeader"
+          }
+        ],
+        "description": "Returns a URL (valid for twenty-four hours) used to retrieve the tone. All tones have a bit depth of twenty-four bits.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateToneEvent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Tone generated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateToneResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestBodySchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenSchema"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to generate tone.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateToneEvent": {
+        "title": "Create Tone Event Schema",
+        "required": [
+          "payload",
+          "profile"
+        ],
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "enum": [
+              "zone66",
+              "zone266",
+              "point1000",
+              "point2000",
+              "pkab2",
+              "pkab2_wideband",
+              "standard2",
+              "standard2_wideband"
+            ],
+            "example": "point1000",
+            "description": "Profile of tone. The Tones API supports the creation of the above tone profiles. Refer to the SDK documentation for profile compatibility."
+          },
+          "payload": {
+            "$ref": "#/components/PayloadProperty"
+          },
+          "format": {
+            "type": "string",
+            "example": "wav",
+            "enum": [
+              "wav",
+              "mp3"
+            ],
+            "description": "File format of tone.",
+            "default": "wav"
+          },
+          "zip": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the tone should be compressed to a ZIP file.",
+            "default": true
+          },
+          "prependSilence": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the tone should be prepended with 200 milliseconds of silence. Due to iOS limitations, this is necessary for API-generated tones to successfully broadcast from iOS browsers.",
+            "default": false
+          },
+          "channel": {
+            "type": "integer",
+            "example": 0,
+            "description": "Channel the provided tone profile will transmit on. Zone66 and Point1000 accept channel values of 0, 1, or 2. Zone266 and Point2000 automatically broadcast on channel 1. Channel can only be used with Zone66, Zone266, Point1000, and Point2000 tone profiles."
+          },
+          "tonelockType": {
+            "type": "string",
+            "example": "account_based",
+            "enum": [
+              "account_based",
+              "custom_value",
+              "time_based"
+            ],
+            "description": "Type of ToneLock that will be used on the provided tone payload. If custom_value type is selected, the tonelockValue must be provided. Refer to the SDK documentation for ToneLock type functionality details."
+          },
+          "tonelockValue": {
+            "type": "string",
+            "example": "2d5cbbc0-5e97-437c-aabc-5891f7a74683",
+            "description": "ToneLock value for the provided tone when using custom_value ToneLock type. Format should be a 36 character string composed of 32 hexadecimal digits and 4 hyphens (RFC4122 Compliant UUID). Any receiving devices cannot demodulate a tone enabled with ToneLock unless they are enabled with a matching ToneLock value."
+          },
+          "encrypt": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the tone payload should be encrypted using AES256. In order to receive and demodulate the encrypted tone, the receiving application must initialize it's Radius object using an SDK token from the same account the API token was created from.",
+            "default": false
+          }
+        }
+      },
+      "Error": {
+        "title": "Error Schema",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Tone creation failed."
+          }
+        }
+      },
+      "InvalidRequestBodySchema": {
+        "title": "Invalid Request Body Schema",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Invalid request body."
+          }
+        }
+      },
+      "UnauthorizedSchema": {
+        "title": "Unauthorized Schema",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Unauthorized."
+          }
+        }
+      },
+      "ForbiddenSchema": {
+        "title": "Forbidden Schema",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User is not authorized to access this resource with an explicit deny."
+          }
+        }
+      },
+      "TooManyRequestsSchema": {
+        "title": "Too Many Requests Schema",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Too many requests."
+          }
+        }
+      },
+      "CreateToneResult": {
+        "title": "Create Tone Result Schema",
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Valid for twenty-four hours.",
+            "example": "https://lisnr-tones-us-east-1.s3.amazonaws.com/radius3-point1000-f185cd4d-aed0-4813-b4e7-87b1ba8d13e7.wav?..."
+          }
+        }
+      }
+    },
+    "PayloadProperty": {
+      "type": "string",
+      "description": "Bytes of tone payload, specified in hexadecimal.\n\n| Profile | Byte Limit |\n| ------- | ----- |\n| Zone66 | 255 |\n| Zone266/Point1000/Point2000 | 3000 |\n| Standard 2.0/Wideband | 255 |\n| PKAB 2.0/Wideband | 3000 |\n\nNote that a hexadecimal string representation has twice as many characters as it does bytes. For example, `a1b2c3` is six characters, but only three bytes.",
+      "example": "68656c6c6f20776f726c64"
+    },
+    "APITokenHeader": {
+      "name": "Authorization",
+      "description": "An [API Token](https://portal.lisnr.com/developer-resources/api/) prefixed by \"JWT\".  \n_Note: There is a transaction type that will be associated with this created tone. The transaction type value comes from the App with which the API token was created. Only if your Account has multiple available transaction types, ensure your API Token was created under an App with the appropriate transaction type._",
+      "in": "header",
+      "type": "string",
+      "required": true,
+      "example": "JWT eyJ...",
+      "schema": {
+        "type": "string"
+      }
+    }
+  }
+}

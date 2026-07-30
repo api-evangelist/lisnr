@@ -1,0 +1,85 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lisnr-tones-openapi-original.json
+sources:
+- openapi/lisnr-tones-openapi-original.json
+- openapi/lisnr-portal-openapi-derived.json
+- https://portal.lisnr.com/scripts/script.865ef81c.js
+format: proprietary
+rfc9457: false
+note: >-
+  LISNR does not use RFC 9457 problem+json. Errors are plain application/json objects. The Tones Service API
+  returns a flat object with a single `message` string; the Portal API wraps the same shape inside its
+  `result` envelope (`{"result": {"message": "..."}}`). There is no machine-readable error code, error type
+  URI, or field-level error detail on either surface, so clients must branch on HTTP status and, where they
+  must distinguish causes, on the human-readable message string.
+envelope:
+  tones_service: '{ "message": "<string>" }'
+  portal: '{ "result": { "message": "<string>" } }'
+problems:
+- status: 400
+  title: Invalid request body
+  schema: InvalidRequestBodySchema
+  message_example: Invalid request body.
+  api: LISNR Tones Service API
+  source_operation: openapi/lisnr-tones-openapi-original.json#/paths/~1/post
+  remediation: >-
+    Check the required properties (payload and profile), the payload encoding for the declared type (hex for
+    data, ASCII for text), the per-profile byte limit, and the ToneLock value format.
+- status: 401
+  title: Unauthorized
+  schema: UnauthorizedSchema
+  message_example: Unauthorized.
+  api: LISNR Tones Service API, LISNR Portal API
+  source_operation: openapi/lisnr-tones-openapi-original.json#/paths/~1/post
+  remediation: >-
+    Send an Authorization header containing a valid API Token prefixed with "JWT ". The Portal treats 401 as
+    "authentication credentials not provided, or credentials are not valid" and logs the session out.
+- status: 403
+  title: Forbidden
+  schema: ForbiddenSchema
+  message_example: User is not authorized to access this resource with an explicit deny.
+  api: LISNR Tones Service API, LISNR Portal API
+  source_operation: openapi/lisnr-tones-openapi-original.json#/paths/~1/post
+  remediation: >-
+    The token is valid but the account or application is not entitled to the resource. Confirm the licensed
+    product for the app (legacy, radius, radius3, point, sda) covers the requested tone profile.
+- status: 403
+  title: User account disabled
+  message_example: Your user account has been disabled. Please contact your Account Administrator.
+  api: LISNR Portal API
+  source: https://portal.lisnr.com/scripts/script.865ef81c.js
+  remediation: Contact the account administrator to re-enable the user.
+- status: 429
+  title: Too many requests
+  schema: TooManyRequestsSchema
+  message_example: Too many requests.
+  api: LISNR Tones Service API
+  source_operation: openapi/lisnr-tones-openapi-original.json#/paths/~1/post
+  remediation: >-
+    Back off and retry. LISNR publishes no limit values and sends no RateLimit or Retry-After headers, so
+    use exponential backoff.
+- status: 500
+  title: Failed to generate tone
+  schema: Error
+  message_example: Tone creation failed.
+  api: LISNR Tones Service API
+  source_operation: openapi/lisnr-tones-openapi-original.json#/paths/~1/post
+  remediation: >-
+    Server-side tone generation failure. Retry; if it persists, contact techsupport@lisnr.com. Note that
+    tone creation is not idempotent, so a retry that succeeds produces a new tone artifact.
+validation_rules_client_side:
+  note: >-
+    These messages are enforced by the LISNR Portal Tone Creator before the request is sent, so they are
+    client-side guardrails for the same server-side 400 above rather than distinct API errors.
+  rules:
+  - Please enter a payload.
+  - Invalid payload for text type payload. Text payloads must be ASCII characters only.
+  - Invalid payload for data type payload. Data payloads must be a hex string representation of bytes. E.g. "a1b2c3".
+  - <Profile> payload limit is <N> bytes. Please shorten your payload to <N> bytes or less.
+  - When encryption is in use, <N> Bytes is the maximum size for a <Profile> payload.
+  - Please provide a ToneLock Value.
+  - Your ToneLock Value is not valid.
+related:
+- conventions/lisnr-conventions.yml
+- authentication/lisnr-authentication.yml

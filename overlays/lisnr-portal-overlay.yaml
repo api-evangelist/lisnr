@@ -1,0 +1,72 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the LISNR Portal API
+  version: 1.0.0
+extends: openapi/lisnr-portal-openapi-derived.json
+x-apievangelist:
+  generated: '2026-07-19'
+  method: generated
+  source: openapi/lisnr-portal-openapi-derived.json
+  rationale: >-
+    LISNR publishes no specification for the Portal API. The base document in openapi/ is derived from the
+    first-party Portal single-page application and describes only what was observed there. This overlay adds
+    the cross-cutting semantics captured in conventions/ and errors/ without asserting anything about
+    request or response body schemas, which LISNR does not publish and which were deliberately not invented.
+actions:
+- target: $.info
+  description: Flag the provenance and its limits prominently for any consumer of the derived document.
+  update:
+    x-provenance-warning: >-
+      Observed, not authoritative. Paths, methods, parameters, the auth scheme and the response envelope
+      were read out of the first-party Portal client bundle (build 2025-12-16). Request and response body
+      schemas are intentionally absent because LISNR does not document them. Verify against LISNR before
+      depending on this in production.
+    x-support-contact: techsupport@lisnr.com
+- target: $
+  description: Record the cross-cutting conventions captured for this provider.
+  update:
+    x-conventions:
+      response_envelope: '{ "result": ... }'
+      error_shape: '{ "result": { "message": "<string>" } }'
+      pagination:
+        style: cursor
+        params:
+        - limit
+        - starting_after
+      idempotency:
+        supported: false
+      versioning:
+        scheme: uri-path
+        current: v2
+        legacy:
+        - /api/v1/
+      rate_limit_headers: []
+      artifact: conventions/lisnr-conventions.yml
+- target: $.components.schemas.Envelope
+  description: Cross-link the error catalogue from the shared envelope schema.
+  update:
+    x-error-catalog: errors/lisnr-problem-types.yml
+- target: $.paths['/v2/apps/{id}/api-tokens'].post
+  description: Mark the sensitivity of the credential this operation mints.
+  update:
+    x-credential-sensitivity: >-
+      Returns a credential LISNR documents as being as sensitive as a password. Never expose the response of
+      this operation to a browser or other public client.
+    x-grants-access-to: https://tones.lisnr.com/
+- target: $.paths['/v2/apps/{id}/sdk-tokens'].post
+  description: Mark the sensitivity and the cross-account encryption constraint.
+  update:
+    x-credential-sensitivity: >-
+      Returns the credential used to initialize the Radius object in a device SDK.
+    x-encryption-constraint: >-
+      To demodulate an AES-256 encrypted tone, the receiving app must initialize with an SDK token issued
+      from the same account as the API token that created the tone.
+- target: $.paths['/v2/accounts'].get
+  description: Document the entitlement vocabulary this operation returns, which gates most of the product.
+  update:
+    x-products-vocabulary:
+    - legacy
+    - radius
+    - radius3
+    - point
+    - sda

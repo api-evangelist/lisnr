@@ -1,0 +1,105 @@
+generated: '2026-07-19'
+method: searched
+source: live HTTP probes of every LISNR host in apis.yml and OpenAPI servers[]
+result: none
+summary: >-
+  No .well-known discovery documents, llms.txt or robots.txt are published on any LISNR host. Nothing was
+  saved because nothing returned a real document — this is a complete, negative result, not a gap in the
+  probe.
+hosts:
+- host: https://api.lisnr.com
+  note: >-
+    Live nginx/1.20.0 origin (the Portal API). Returns a plain HTML 404 for every probed path, including the
+    root.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 404
+- host: https://portal.lisnr.com
+  note: >-
+    AngularJS single-page application. Every probed path returns HTTP 200 with the identical 4628-byte
+    index.html shell, i.e. a soft 404 from the SPA catch-all route — none of these are real documents, so
+    none were saved.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    soft_404: true
+  - path: /.well-known/openid-configuration
+    status: 200
+    soft_404: true
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    soft_404: true
+  - path: /.well-known/api-catalog
+    status: 200
+    soft_404: true
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    soft_404: true
+  - path: /llms.txt
+    status: 200
+    soft_404: true
+  - path: /robots.txt
+    status: 200
+    soft_404: true
+- host: https://lisnr.com
+  note: >-
+    The marketing site is behind a SiteGround bot challenge. Every request, including the homepage, returns
+    HTTP 202 with a 169-195 byte meta-refresh redirect to /.well-known/sgcaptcha/, so no path on this host
+    can be resolved programmatically and no document could be confirmed either present or absent.
+  documents:
+  - path: /.well-known/security.txt
+    status: 202
+    blocked_by: sgcaptcha
+  - path: /.well-known/openid-configuration
+    status: 202
+    blocked_by: sgcaptcha
+  - path: /.well-known/oauth-authorization-server
+    status: 202
+    blocked_by: sgcaptcha
+  - path: /.well-known/api-catalog
+    status: 202
+    blocked_by: sgcaptcha
+  - path: /.well-known/ai-plugin.json
+    status: 202
+    blocked_by: sgcaptcha
+  - path: /llms.txt
+    status: 202
+    blocked_by: sgcaptcha
+  - path: /robots.txt
+    status: 202
+    blocked_by: sgcaptcha
+- host: https://tones.lisnr.com
+  note: >-
+    The Tones Service origin. Returns HTTP 403 at the root without an Authorization header; not probed
+    further because the whole host is authenticated.
+  documents: []
+oauth_discovery:
+  applicable: false
+  reason: LISNR uses no OAuth or OIDC, so openid-configuration and oauth-authorization-server cannot exist.
+security_txt:
+  present: false
+subdomains_checked:
+  resolving:
+  - api.lisnr.com
+  - portal.lisnr.com
+  - tones.lisnr.com
+  - lisnr.com
+  nxdomain:
+  - docs.lisnr.com
+  - developer.lisnr.com
+  - developers.lisnr.com
+  - status.lisnr.com
+  - trust.lisnr.com
+  - blog.lisnr.com

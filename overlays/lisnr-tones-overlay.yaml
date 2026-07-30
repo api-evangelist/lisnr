@@ -1,0 +1,92 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the LISNR Tones Service API
+  version: 1.0.0
+extends: openapi/lisnr-tones-openapi-original.json
+x-apievangelist:
+  generated: '2026-07-19'
+  method: generated
+  source: openapi/lisnr-tones-openapi-original.json
+  rationale: >-
+    The LISNR-published document is a valid-looking but structurally non-conformant OpenAPI 3.0.1: it $refs
+    #/components/APITokenHeader and #/components/PayloadProperty, which live at the root of components rather
+    than under components/parameters and components/schemas, so most tooling fails to resolve them. It also
+    omits info.version, operationId and tags. This overlay repairs the structure and adds the missing
+    metadata without mutating the harvested original.
+actions:
+- target: $.info
+  description: Add the missing info.version, a description and a support contact.
+  update:
+    version: '1.0'
+    description: >-
+      Generates an ultrasonic LISNR data tone from a hexadecimal payload and returns a signed URL, valid for
+      twenty-four hours, pointing at the generated 24-bit audio file. Authenticate with a per-application
+      API Token minted in the LISNR Portal, sent in the Authorization header behind the literal prefix
+      "JWT ". The tone's transaction type is inherited from the LISNR application the API Token belongs to.
+    contact:
+      name: LISNR Technical Support
+      email: techsupport@lisnr.com
+      url: https://lisnr1.atlassian.net/servicedesk/customer/portals
+    x-apievangelist-rating-source: https://apis.io/provider/lisnr/
+- target: $.servers[0]
+  description: Name the single production server.
+  update:
+    description: LISNR Tones Service production
+- target: $
+  description: >-
+    Declare the header credential as a proper securityScheme so tooling can generate working clients. The
+    original expresses it only as a malformed inline parameter $ref.
+  update:
+    security:
+    - apiToken: []
+    tags:
+    - name: Tones
+      description: Ultrasonic tone generation.
+- target: $.components
+  description: >-
+    Relocate the misplaced root-level components into their conformant homes and add the securityScheme.
+  update:
+    securitySchemes:
+      apiToken:
+        type: apiKey
+        in: header
+        name: Authorization
+        description: >-
+          A LISNR API Token prefixed by the literal string "JWT ", for example "JWT eyJ...". Mint one per
+          LISNR application at https://portal.lisnr.com/apps/{app_id}/api-tokens. LISNR documents API Tokens
+          as being as sensitive as passwords; never ship one in a browser or other public client.
+    parameters:
+      APITokenHeader:
+        name: Authorization
+        in: header
+        required: true
+        description: An API Token prefixed by "JWT".
+        example: JWT eyJ...
+        schema:
+          type: string
+- target: $.paths['/'].post
+  description: Add the missing operationId and tag, and document the non-idempotent retry semantics.
+  update:
+    operationId: createTone
+    tags:
+    - Tones
+    x-idempotent: false
+    x-retry-guidance: >-
+      Not safe to blind-retry. Each accepted call generates a new tone artifact and a new signed URL. Retry
+      only after a transport failure with no response; treat 429 as backoff, not replay.
+    x-payload-byte-limits:
+      zone66: 255
+      zone266: 3000
+      point1000: 3000
+      point2000: 3000
+      standard2: 255
+      standard2_wideband: 255
+      pkab2: 3000
+      pkab2_wideband: 3000
+    x-encryption-overhead: >-
+      When encrypt is true the usable payload shrinks by 2 bytes for zone66 and by 4 bytes for every other
+      profile.
+- target: $.paths['/'].post.responses['200']
+  description: Record the twenty-four hour time-to-live on the returned artifact URL.
+  update:
+    x-artifact-ttl: PT24H

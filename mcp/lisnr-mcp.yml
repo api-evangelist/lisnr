@@ -1,0 +1,98 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/lisnr-tones-openapi-original.json
+sources:
+- openapi/lisnr-tones-openapi-original.json
+- openapi/lisnr-portal-openapi-derived.json
+search_result:
+  official_server: none
+  checked:
+  - LISNR Developer Resources pages on portal.lisnr.com
+  - github.com/lisnr (1 public repo, unrelated)
+  - npm registry search for "lisnr"
+  note: >-
+    LISNR publishes no hosted or local MCP server. The tools below are a candidate surface derived from the
+    operations LISNR does expose; they are a design proposal, not a LISNR product.
+server:
+  name: lisnr
+  transport: http
+  url: null
+authentication:
+  scheme: api-key-header
+  header: Authorization
+  value_format: JWT <token>
+  note: >-
+    A single API Token scopes an agent to one LISNR application, which is a useful natural blast-radius
+    boundary. Portal operations require a separate user-session JWT and are far more privileged.
+tools:
+- name: create_tone
+  description: >-
+    Generate an ultrasonic LISNR tone from a hexadecimal payload and return a signed URL, valid for
+    twenty-four hours, to the resulting audio file.
+  source_operation: openapi/lisnr-tones-openapi-original.json#createTone
+  action_class: acting
+  consequence: write
+  idempotent: false
+  agent_notes: >-
+    Not idempotent — each call mints a new artifact and consumes account quota. Validate the payload against
+    the profile byte limit before calling, and subtract the encryption overhead (2 bytes for zone66, 4 for
+    all other profiles) when encrypt is true.
+- name: list_apps
+  description: List the LISNR applications on the account.
+  source_operation: openapi/lisnr-portal-openapi-derived.json#listApps
+  action_class: connected
+  consequence: read
+  idempotent: true
+- name: get_app
+  description: Get a single LISNR application, including its SDK type and tone profiles.
+  source_operation: openapi/lisnr-portal-openapi-derived.json#getApp
+  action_class: connected
+  consequence: read
+  idempotent: true
+- name: get_account
+  description: >-
+    Get the account and its licensed products (legacy, radius, radius3, point, sda), which determine the
+    tone profiles available to an app.
+  source_operation: openapi/lisnr-portal-openapi-derived.json#listAccounts
+  action_class: connected
+  consequence: read
+  idempotent: true
+- name: list_sdk_releases
+  description: List downloadable SDK releases with versions, documentation URLs and sample projects.
+  source_operation: openapi/lisnr-portal-openapi-derived.json#listSdkReleases
+  action_class: connected
+  consequence: read
+  idempotent: true
+- name: list_api_tokens
+  description: List the API tokens on a LISNR application.
+  source_operation: openapi/lisnr-portal-openapi-derived.json#listApiTokens
+  action_class: connected
+  consequence: read
+  idempotent: true
+  agent_notes: Returns credential material; must not be echoed into agent transcripts or logs.
+- name: list_invoices
+  description: List account invoices, cursor paginated with limit and starting_after.
+  source_operation: openapi/lisnr-portal-openapi-derived.json#listInvoices
+  action_class: connected
+  consequence: read
+  idempotent: true
+excluded_operations:
+  note: >-
+    These observed operations are deliberately left out of the candidate tool surface because they mint or
+    destroy credentials, or mutate users and billing state, and are not safe for autonomous agent execution
+    without a human in the loop.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#createApiToken
+  - openapi/lisnr-portal-openapi-derived.json#deleteApiToken
+  - openapi/lisnr-portal-openapi-derived.json#createSdkToken
+  - openapi/lisnr-portal-openapi-derived.json#deleteSdkToken
+  - openapi/lisnr-portal-openapi-derived.json#deleteApp
+  - openapi/lisnr-portal-openapi-derived.json#createUser
+  - openapi/lisnr-portal-openapi-derived.json#updateUser
+  - openapi/lisnr-portal-openapi-derived.json#changePassword
+  - openapi/lisnr-portal-openapi-derived.json#acceptCustomerAgreement
+  - openapi/lisnr-portal-openapi-derived.json#login
+related:
+- skills/_index.yml
+- conventions/lisnr-conventions.yml

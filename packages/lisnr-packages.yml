@@ -1,0 +1,86 @@
+generated: '2026-07-19'
+method: searched
+source: https://portal.lisnr.com/pages/developer-resources/developer-resources.html
+registries_probed:
+- registry: npm
+  query: lisnr
+  result: one non-first-party placeholder package (see unverified below)
+- registry: pypi
+  query: lisnr
+  result: 404
+- registry: maven-central
+  query: lisnr
+  result: 0 artifacts
+- registry: rubygems
+  query: lisnr
+  result: 404
+- registry: crates.io
+  query: lisnr
+  result: no crate
+distribution_model:
+  public_registries: false
+  summary: >-
+    LISNR does not publish its client SDKs to any public package registry. SDKs, sample projects and their
+    documentation are gated behind the LISNR Portal: an authenticated account calls GET /v2/sdk-releases and
+    the per-platform Developer Resources pages render download links for the SDK generations that the
+    account is licensed for. There is therefore no `npm install` / `pip install` / Maven coordinate to
+    record, and no public SDK a non-customer can obtain.
+  gated_endpoint: openapi/lisnr-portal-openapi-derived.json#listSdkReleases
+  gated_pages:
+  - https://portal.lisnr.com/developer-resources/android/
+  - https://portal.lisnr.com/developer-resources/ios/
+  - https://portal.lisnr.com/developer-resources/react-native/
+  - https://portal.lisnr.com/developer-resources/linux/
+  - https://portal.lisnr.com/developer-resources/windows/
+  entitlement: >-
+    Which SDK generations appear is driven by the account `products` array (legacy, radius, radius3, point,
+    sda) returned by GET /v2/accounts.
+packages: []
+sdk_platforms:
+- platform: android
+  languages: [kotlin, java]
+  generations: [legacy, radius, radius3, point, sda]
+  distribution: portal-download
+  sample_project: true
+  supported_versions: Android 7.0+
+- platform: ios
+  languages: [swift, objective-c]
+  generations: [legacy, radius, radius3, point, sda]
+  distribution: portal-download
+  sample_project: true
+  supported_versions: iOS 15.1+
+- platform: react-native
+  languages: [javascript, typescript]
+  generations: [radius, radius3]
+  distribution: portal-download
+  sample_project: true
+  supported_versions: Android 7.0+, iOS 15.1+
+- platform: linux
+  distribution: portal-download
+- platform: windows
+  distribution: portal-download
+unverified:
+- language: javascript
+  registry: npm
+  name: react-native-lisnr-react-sda
+  url: https://www.npmjs.com/package/react-native-lisnr-react-sda
+  version: 1.0.0
+  published: '2021-08-06'
+  last_modified: '2022-05-14'
+  official: false
+  reason: >-
+    Name references LISNR's React Native SDA SDK, but the package metadata is unmodified boilerplate — the
+    author is "Your Name <yourname@email.com>", the repository points at github.com/github_account/…, and
+    the description is literally "TODO". It is published by the npm user "doom_slug", which is not tied to
+    LISNR. Recorded for completeness only; it is not a first-party LISNR distribution.
+first_party_repositories:
+- host: github
+  org: https://github.com/lisnr
+  public_repos: 1
+  note: >-
+    The LISNR GitHub organization is real but contains no SDK. Its single public repository,
+    LNRSimpleNotifications (Swift, last updated 2022-02-28), is an in-app notification helper unrelated to
+    the ultrasonic SDKs or either API.
+related:
+- lifecycle/lisnr-lifecycle.yml
+- authentication/lisnr-authentication.yml

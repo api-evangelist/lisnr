@@ -1,0 +1,47 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/lisnr-tones-openapi-original.json
+note: >-
+  LISNR publishes no AGENTS.md or skill files of its own (github.com/lisnr holds one unrelated public repo,
+  and the Developer Resources pages are behind Portal authentication). These skills are generated from the
+  LISNR-published Tones Service OpenAPI, the observed Portal API description, and the conventions and error
+  artifacts in this repository. Every operationId referenced exists verbatim in the spec it names, with one
+  documented exception: LISNR's published Tones Service OpenAPI declares no operationId at all, so
+  `createTone` is the id assigned to its single operation (POST /) by overlays/lisnr-tones-overlay.yaml.
+skills:
+- file: lisnr-generate-tone.md
+  name: Generate a LISNR ultrasonic tone
+  description: >-
+    Encode a payload, pick a licensed tone profile, optionally encrypt and ToneLock it, call createTone, and
+    retrieve the signed audio URL before its twenty-four hour expiry.
+  api: openapi/lisnr-tones-openapi-original.json
+  operations:
+  - createTone
+  supporting_operations:
+  - listAccounts
+  - getApp
+  - listApiTokens
+- file: lisnr-provision-app-tokens.md
+  name: Provision a LISNR application and its tokens
+  description: >-
+    Authenticate to the Portal, check the account's licensed products, create an application against the
+    right SDK generation and transaction type, mint the API token and SDK token, and locate the SDK release.
+  api: openapi/lisnr-portal-openapi-derived.json
+  operations:
+  - login
+  - listAccounts
+  - listApps
+  - createApp
+  - getApp
+  - listApiTokens
+  - createApiToken
+  - deleteApiToken
+  - listSdkTokens
+  - createSdkToken
+  - deleteSdkToken
+  - listSdkReleases
+related:
+- conventions/lisnr-conventions.yml
+- errors/lisnr-problem-types.yml
+- authentication/lisnr-authentication.yml
+- mcp/lisnr-mcp.yml

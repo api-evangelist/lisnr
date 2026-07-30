@@ -1,0 +1,80 @@
+generated: '2026-07-19'
+method: derived
+source: https://portal.lisnr.com/config.js
+sources:
+- https://portal.lisnr.com/version.df19c377.js
+- https://portal.lisnr.com/scripts/script.865ef81c.js
+- openapi/lisnr-tones-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v2
+  legacy:
+  - path: /api/v1/
+    status: still configured in the Portal client, no observed operation still calls it
+  tones_service:
+    scheme: unversioned
+    detail: >-
+      The Tones Service API is served at the root of https://tones.lisnr.com/ with no version segment, and
+      its OpenAPI declares no info.version.
+  docs: https://portal.lisnr.com/developer-resources/api
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    LISNR publishes no deprecation or sunset policy, and neither surface emits RFC 8594 Sunset or Deprecation
+    headers. The only visible lifecycle signal is the account `products` list, which gates an app to the SDK
+    generations it is licensed for; the oldest generation is named "legacy" in the API and in the Portal UI,
+    which is the closest thing to a deprecation marker LISNR exposes.
+deprecated_operations: []
+sdk_generations:
+  note: >-
+    LISNR versions its client story by SDK generation rather than by API version. An app is created with one
+    sdk_type and the Portal gates pages and tone profiles on it.
+  generations:
+  - id: legacy
+    label: Legacy
+    tone_profiles: [standard, compression]
+  - id: radius
+    label: Radius
+    tone_profiles: [standard2, standard2_wideband, pkab2, pkab2_wideband]
+  - id: radius3
+    label: Radius 3
+    tone_profiles: [zone66, zone266, point1000, point2000]
+  - id: point
+    label: Point
+    note: Short-range 1:1 proximity, full duplex over two frequency channels.
+  - id: sda
+    label: SDA
+    note: >-
+      Apps of this type carry an sda_expiration_delta_seconds setting, constrained by the Portal to between
+      1 and 172800 seconds (48 hours).
+  releases_endpoint: openapi/lisnr-portal-openapi-derived.json#listSdkReleases
+  release_notes: >-
+    SDK versions, documentation URLs and sample projects are served from GET /v2/sdk-releases and rendered
+    on the per-platform Developer Resources pages. Both the endpoint and those pages are behind Portal
+    authentication, so LISNR publishes no public changelog or release-notes feed.
+status_page: null
+status_page_note: >-
+  No status page was found. status.lisnr.com does not resolve, and no status link appears on the Portal or
+  in the Developer Resources pages.
+sla:
+  url: null
+  uptime_target: null
+support:
+  service_desk: https://lisnr1.atlassian.net/servicedesk/customer/portals
+  technical: techsupport@lisnr.com
+  sales: sales@lisnr.com
+observed_builds:
+- surface: LISNR Portal
+  commit: 21642731f60cf8afea46dfcee711735e685d1141
+  build_date: '2025-12-16T18:23:14Z'
+  source: https://portal.lisnr.com/version.df19c377.js
+artifact_ttls:
+- artifact: generated tone URL
+  ttl: twenty-four hours
+  source: openapi/lisnr-tones-openapi-original.json
+related:
+- conventions/lisnr-conventions.yml
+- packages/lisnr-packages.yml

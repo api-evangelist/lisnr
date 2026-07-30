@@ -1,0 +1,206 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lisnr-portal-openapi-derived.json
+sources:
+- openapi/lisnr-portal-openapi-derived.json
+- openapi/lisnr-tones-openapi-original.json
+- https://portal.lisnr.com/scripts/script.865ef81c.js
+note: >-
+  Entity graph derived from the path hierarchy of the observed Portal API and from the fields the first-party
+  Portal client reads. LISNR publishes no object reference, so no id prefixes or field-level schemas are
+  asserted beyond the identifiers and enumerations actually observed.
+entities:
+- name: Account
+  description: >-
+    The billing and entitlement root. Carries the products array that licenses which SDK generations and
+    tone profiles the account may use, and the billing_type list.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listAccounts
+  fields_observed:
+  - name: products
+    type: array
+    enum: [legacy, radius, radius3, point, sda]
+    description: Licensed SDK generations. Gates the Portal UI and the tone profiles an app may create.
+  - name: billing_type
+    type: array
+- name: User
+  description: A person on the account. Can be enabled or disabled by an account administrator.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listUsers
+  - openapi/lisnr-portal-openapi-derived.json#createUser
+  - openapi/lisnr-portal-openapi-derived.json#getUser
+  - openapi/lisnr-portal-openapi-derived.json#updateUser
+  - openapi/lisnr-portal-openapi-derived.json#getCurrentUser
+  fields_observed:
+  - name: userid
+    type: string
+  - name: token
+    type: string
+    description: Session JWT held by the client after login.
+- name: Notification
+  description: A per-user portal notification that can be marked read or dismissed.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listNotifications
+  - openapi/lisnr-portal-openapi-derived.json#updateNotification
+  fields_observed:
+  - name: is_read
+    type: boolean
+  - name: is_dismissed
+    type: boolean
+  - name: link
+    type: string
+- name: App
+  description: >-
+    A LISNR application. The central entity: it fixes the SDK generation, the transaction type stamped onto
+    every tone created with its API tokens, and the tone profiles available.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listApps
+  - openapi/lisnr-portal-openapi-derived.json#createApp
+  - openapi/lisnr-portal-openapi-derived.json#getApp
+  - openapi/lisnr-portal-openapi-derived.json#updateApp
+  - openapi/lisnr-portal-openapi-derived.json#deleteApp
+  fields_observed:
+  - name: id
+    type: string
+  - name: type
+    type: string
+  - name: sdk_type
+    type: string
+    enum: [legacy, radius, radius3, point, sda]
+  - name: profiles
+    type: array
+    description: Tone profiles enabled for the app; valid values depend on sdk_type.
+  - name: tone_transaction_type
+    type: string
+    enum: [payment, identification, confirmation, device_pairing]
+    description: >-
+      Inherited by every tone created with an API token belonging to this app. Accounts with more than one
+      available transaction type must pick the right app before minting a token.
+  - name: extra.sda_expiration_delta_seconds
+    type: integer
+    constraints: 'integer, 1 <= n <= 172800 (48 hours); applies only when sdk_type is sda'
+- name: APIToken
+  description: >-
+    Per-app credential authorizing calls to the Tones Service API on behalf of the app. Documented by LISNR
+    as being as sensitive as a password.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listApiTokens
+  - openapi/lisnr-portal-openapi-derived.json#createApiToken
+  - openapi/lisnr-portal-openapi-derived.json#deleteApiToken
+  fields_observed:
+  - name: token
+    type: string
+    description: Sent as "JWT <token>" in the Authorization header.
+- name: SDKToken
+  description: Per-app credential that initializes the Radius object inside a client SDK.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listSdkTokens
+  - openapi/lisnr-portal-openapi-derived.json#createSdkToken
+  - openapi/lisnr-portal-openapi-derived.json#deleteSdkToken
+- name: SDKRelease
+  description: A downloadable SDK build for one platform and generation, with its docs and sample project.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listSdkReleases
+  fields_observed:
+  - name: version
+    type: string
+  - name: platform
+    type: string
+  - name: sdk
+    type: string
+    description: Download URL for the SDK archive.
+  - name: sample_app
+    type: string
+    description: Download URL for the sample project.
+  - name: documentation_url
+    type: string
+- name: Invoice
+  description: A billing document on the account. Cursor paginated.
+  operations:
+  - openapi/lisnr-portal-openapi-derived.json#listInvoices
+  fields_observed:
+  - name: id
+    type: string
+    description: Used as the starting_after cursor value.
+- name: Tone
+  description: >-
+    The generated ultrasonic artifact. Not a stored, addressable resource on the API — the create call
+    returns a signed URL valid for twenty-four hours and there is no read, list or delete operation.
+  operations:
+  - openapi/lisnr-tones-openapi-original.json#createTone
+  fields_observed:
+  - name: profile
+    type: string
+    enum: [zone66, zone266, point1000, point2000, pkab2, pkab2_wideband, standard2, standard2_wideband]
+  - name: payload
+    type: string
+    description: Hexadecimal byte string; byte limit depends on profile.
+  - name: format
+    type: string
+    enum: [wav, mp3]
+  - name: zip
+    type: boolean
+  - name: prependSilence
+    type: boolean
+  - name: channel
+    type: integer
+  - name: tonelockType
+    type: string
+    enum: [account_based, custom_value, time_based]
+  - name: tonelockValue
+    type: string
+    format: rfc4122-uuid
+  - name: encrypt
+    type: boolean
+relationships:
+- from: Account
+  to: User
+  type: has_many
+  via: path hierarchy
+- from: Account
+  to: App
+  type: has_many
+  via: openapi/lisnr-portal-openapi-derived.json#listApps
+- from: Account
+  to: Invoice
+  type: has_many
+  via: /v2/invoices
+- from: Account
+  to: SDKRelease
+  type: has_many
+  via: 'entitlement: SDK releases are filtered by Account.products'
+- from: User
+  to: Notification
+  type: has_many
+  via: /v2/users/{userid}/notifications/
+- from: App
+  to: APIToken
+  type: has_many
+  via: /v2/apps/{id}/api-tokens
+- from: App
+  to: SDKToken
+  type: has_many
+  via: /v2/apps/{id}/sdk-tokens
+- from: APIToken
+  to: App
+  type: belongs_to
+  via: path parent
+- from: SDKToken
+  to: App
+  type: belongs_to
+  via: path parent
+- from: Tone
+  to: APIToken
+  type: belongs_to
+  via: Authorization header — the tone's transaction type is inherited from the token's App
+- from: Tone
+  to: App
+  type: belongs_to
+  via: transitively through APIToken (tone_transaction_type and allowed profiles)
+cross_surface_note: >-
+  The two APIs meet at exactly one seam: an APIToken minted on the Portal API (api.lisnr.com) is the
+  credential presented to the Tones Service API (tones.lisnr.com). Nothing else is shared between them.
+render: null
+related:
+- conventions/lisnr-conventions.yml
+- authentication/lisnr-authentication.yml

@@ -1,0 +1,126 @@
+generated: '2026-07-19'
+method: searched
+source: https://portal.lisnr.com/scripts/script.865ef81c.js
+sources:
+- https://portal.lisnr.com/pages/developer-resources/api/api.html
+- https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+- openapi/lisnr-tones-openapi-original.json
+- openapi/lisnr-portal-openapi-derived.json
+note: >-
+  Cross-cutting semantics for the two LISNR HTTP surfaces. The Tones Service items are taken from the
+  LISNR-published OpenAPI and its ReDoc reference; the Portal API items are observed in the first-party
+  Portal single-page application (build 2025-12-16), which is the only description LISNR exposes for that
+  surface.
+authentication:
+  style: api-key-in-header
+  header: Authorization
+  value_format: JWT <token>
+  oauth2: false
+  detail: authentication/lisnr-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    Neither the published Tones Service OpenAPI nor the observed Portal API client sends an idempotency key,
+    and LISNR documents no idempotency contract. Tone creation (POST https://tones.lisnr.com/) is therefore
+    not safe to blind-retry: each accepted call generates a new tone artifact and a new signed URL. Retry
+    only after a transport failure with no response, and treat a 429 as backoff rather than replay.
+pagination:
+  style: cursor
+  params:
+  - name: limit
+    description: Page size. Observed values range from 1 to 100 in the first-party client.
+  - name: starting_after
+    description: >-
+      Cursor. Set to the id of the last item on the previous page to fetch the next page. Observed on the
+      invoices collection.
+  - name: platform
+    description: Filter, not pagination. Observed on the sdk-releases collection.
+  applies_to:
+  - /v2/invoices
+  - /v2/sdk-releases
+  - /v2/apps/{id}/api-tokens
+  - /v2/apps/{id}/sdk-tokens
+  - /v2/users/
+  - /v2/users/{userid}/notifications/
+  response_fields: >-
+    Collections come back as an array on the response envelope's `result` property; there is no observed
+    total-count or next-cursor field, so clients page until a short page is returned.
+  scope: Portal API only. The Tones Service API has a single operation and no collections.
+response_envelope:
+  shape: '{ "result": ... }'
+  detail: >-
+    Every Portal API response, success or failure, wraps its payload on a top-level `result` property.
+    Collections put an array there, single reads an object, and errors an object carrying a `message`
+    string. The Tones Service API does NOT use this envelope: it returns `{ "url": "..." }` on success and
+    `{ "message": "..." }` on every documented error status.
+  evidence:
+  - portal client reads data.result and data.result[0]
+  - portal client reads response.data.result.message on error
+error_semantics:
+  format: proprietary-message-object
+  rfc9457: false
+  problem_json: false
+  detail: errors/lisnr-problem-types.yml
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: false
+request_id_tracing:
+  header: null
+  supported: false
+  note: >-
+    No request-id or correlation header is set by the first-party client or documented in the OpenAPI. The
+    Portal reports client-side errors to Sentry rather than surfacing a server request id to callers.
+versioning:
+  style: uri-path
+  detail: >-
+    The Portal API carries its version in the path. Two prefixes are live against https://api.lisnr.com:
+    `/v2/` (current — every observed Portal call) and `/api/v1/` (legacy — still configured as `apiBase` in
+    the Portal but no longer used by any observed operation). The Tones Service API is unversioned: its base
+    URL is https://tones.lisnr.com/ and the single operation is at the root path.
+  current: v2
+  legacy:
+  - /api/v1/
+  detail_artifact: lifecycle/lisnr-lifecycle.yml
+rate_limit_signaling:
+  documented_headers: []
+  status: 429
+  detail: >-
+    The Tones Service OpenAPI documents a 429 "Too many requests." response, so a rate limit exists and is
+    enforced, but LISNR publishes neither the limit values nor any RateLimit/Retry-After response headers.
+    Clients should back off on 429 without header guidance.
+content_negotiation:
+  request: application/json
+  response: application/json
+  binary: >-
+    The Tones Service returns a URL rather than audio bytes; the caller fetches the WAV/MP3 (optionally
+    ZIPped) from the returned signed URL, which is valid for twenty-four hours.
+cors:
+  note: >-
+    api.lisnr.com responds with a `Vary: Origin` header, indicating per-origin CORS handling.
+domain_constraints:
+  payload_encoding: >-
+    Tone payloads are a hexadecimal string representation of bytes, so a payload is half as many bytes as it
+    is characters. Text payloads must be ASCII.
+  payload_byte_limits:
+    zone66: 255
+    zone266: 3000
+    point1000: 3000
+    point2000: 3000
+    standard2: 255
+    standard2_wideband: 255
+    pkab2: 3000
+    pkab2_wideband: 3000
+  encryption_overhead: >-
+    When encrypt is true the usable payload shrinks: by 2 bytes for the zone66 profile and by 4 bytes for
+    every other profile.
+  tonelock_value_format: RFC 4122 UUID (36 characters, 32 hex digits and 4 hyphens)
+  tone_url_ttl: twenty-four hours
+related:
+- authentication/lisnr-authentication.yml
+- errors/lisnr-problem-types.yml
+- lifecycle/lisnr-lifecycle.yml
+- data-model/lisnr-data-model.yml
