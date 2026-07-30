@@ -1,20 +1,210 @@
 aid: lisnr
 name: LISNR
-description: LISNR is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  LISNR is a Cincinnati, Ohio company whose ultrasonic data-over-audio technology transmits data between
+  devices using inaudible high-frequency tones instead of radio. Its Radius SDKs (Radius, Radius 3, Point,
+  and the legacy and SDA product lines) embed a transmitter/receiver into iOS, Android, React Native, Linux
+  and Windows applications so that a speaker and a microphone become a proximity data channel for contactless
+  payment, identification, confirmation and device-pairing transactions. Developers work through the LISNR
+  Portal, which issues per-application API tokens and SDK tokens, exposes SDK releases and sample projects,
+  and provides a Tone Creator and a tone-speed calculator. The public Tones Service API generates a
+  downloadable 24-bit audio tone (WAV or MP3) from a hexadecimal payload for a chosen tone profile, with
+  optional AES-256 payload encryption and ToneLock pairing so that only matching receivers can demodulate
+  the tone.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://lh3.googleusercontent.com/v89HEtbE-zGOkBwCmWf7zbG9BBtS22tgXzNSgZG4F3fqv90KqLo0yWO5D1PFUxGG-VSIVNgoxsWEVLLjA-pkHA=w205
 url: https://raw.githubusercontent.com/api-evangelist/lisnr/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Ultrasonic
+- Data Over Audio
+- Proximity
+- Contactless Payments
+- Device Pairing
+- Identification
+- Audio
+- Internet of Things
+- SDK
+apis:
+- aid: lisnr:lisnr-accounts-api
+  name: LISNR Accounts API
+  description: The Accounts API from LISNR — 1 operation(s) for accounts.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-api-tokens-api
+  name: LISNR API Tokens API
+  description: The API Tokens API from LISNR — 2 operation(s) for api tokens.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - API Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-api-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-applications-api
+  name: LISNR Applications API
+  description: The Applications API from LISNR — 2 operation(s) for applications.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-applications-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-authentication-api
+  name: LISNR Authentication API
+  description: The Authentication API from LISNR — 5 operation(s) for authentication.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-billing-api
+  name: LISNR Billing API
+  description: The Billing API from LISNR — 1 operation(s) for billing.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-billing-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-notifications-api
+  name: LISNR Notifications API
+  description: The Notifications API from LISNR — 2 operation(s) for notifications.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-sdk-releases-api
+  name: LISNR SDK Releases API
+  description: The SDK Releases API from LISNR — 1 operation(s) for sdk releases.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - SDK Releases
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-sdk-releases-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-sdk-tokens-api
+  name: LISNR SDK Tokens API
+  description: The SDK Tokens API from LISNR — 2 operation(s) for sdk tokens.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - SDK Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-sdk-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-tones-service-api-reference-api
+  name: LISNR Tones Service API Reference API
+  description: >-
+    The Tones Service API Reference API from LISNR — 1 operation(s) for tones service api reference.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - Tones Service API Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-tones-service-api-reference-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
+- aid: lisnr:lisnr-users-api
+  name: LISNR Users API
+  description: The Users API from LISNR — 3 operation(s) for users.
+  humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  baseURL: https://tones.lisnr.com/
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/lisnr-users-api-openapi.yml
+  - type: Documentation
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: APIReference
+    url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+  - type: Documentation
+    url: https://portal.lisnr.com/developer-resources/api
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,3 +213,50 @@ maintainers:
 common:
 - type: Website
   url: https://lisnr.com/
+- type: DeveloperPortal
+  url: https://portal.lisnr.com/
+- type: Documentation
+  url: https://portal.lisnr.com/developer-resources/
+- type: APIReference
+  url: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
+- type: GettingStarted
+  url: https://portal.lisnr.com/help-center/getting-started/
+- type: Support
+  url: https://lisnr1.atlassian.net/servicedesk/customer/portals
+- type: HelpCenter
+  url: https://portal.lisnr.com/help-center/
+- type: GitHubOrganization
+  url: https://github.com/lisnr
+- type: SignUp
+  url: https://portal.lisnr.com/
+- type: Authentication
+  url: authentication/lisnr-authentication.yml
+- type: Conventions
+  url: conventions/lisnr-conventions.yml
+- type: ErrorCatalog
+  url: errors/lisnr-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/lisnr-lifecycle.yml
+- type: Conformance
+  url: conformance/lisnr-conformance.yml
+- type: Packages
+  url: packages/lisnr-packages.yml
+- type: SDKs
+  url: packages/lisnr-packages.yml
+- type: WellKnown
+  url: well-known/lisnr-well-known.yml
+- type: MCPServer
+  url: mcp/lisnr-mcp.yml
+- type: LLMsTxt
+  url: llms/lisnr-llms.txt
+- type: DataModel
+  url: data-model/lisnr-data-model.yml
+- type: DomainSecurity
+  url: security/lisnr-domain-security.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
