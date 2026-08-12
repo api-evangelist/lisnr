@@ -211,6 +211,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/lisnr-portal-overlay.yaml
 - type: Website
   url: https://lisnr.com/
 - type: DeveloperPortal
