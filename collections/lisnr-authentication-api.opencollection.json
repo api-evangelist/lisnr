@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LISNR Portal API (observed) Accounts Authentication API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authenticate a portal user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lisnr.com/v2/auth/login"
+          },
+          "docs": "Exchange username + password for a JWT bearer token."
+        },
+        {
+          "info": {
+            "name": "Request a password reset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lisnr.com/v2/auth/password/reset"
+          },
+          "docs": "Send a password reset email for the given username."
+        },
+        {
+          "info": {
+            "name": "Complete a password reset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lisnr.com/v2/auth/password/reset/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Complete a password reset using the emailed token."
+        },
+        {
+          "info": {
+            "name": "Change the current user's password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lisnr.com/v2/auth/password/change",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the current user's password"
+        },
+        {
+          "info": {
+            "name": "Accept the customer agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lisnr.com/v2/auth/customer-agreement/accept",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Accept the LISNR customer agreement by supplying initials."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

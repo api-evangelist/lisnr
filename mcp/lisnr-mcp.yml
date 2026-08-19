@@ -11,9 +11,8 @@ search_result:
   - LISNR Developer Resources pages on portal.lisnr.com
   - github.com/lisnr (1 public repo, unrelated)
   - npm registry search for "lisnr"
-  note: >-
-    LISNR publishes no hosted or local MCP server. The tools below are a candidate surface derived from the
-    operations LISNR does expose; they are a design proposal, not a LISNR product.
+  note: LISNR publishes no hosted or local MCP server. The tools below are a candidate surface derived
+    from the operations LISNR does expose; they are a design proposal, not a LISNR product.
 server:
   name: lisnr
   transport: http
@@ -22,22 +21,19 @@ authentication:
   scheme: api-key-header
   header: Authorization
   value_format: JWT <token>
-  note: >-
-    A single API Token scopes an agent to one LISNR application, which is a useful natural blast-radius
+  note: A single API Token scopes an agent to one LISNR application, which is a useful natural blast-radius
     boundary. Portal operations require a separate user-session JWT and are far more privileged.
 tools:
 - name: create_tone
-  description: >-
-    Generate an ultrasonic LISNR tone from a hexadecimal payload and return a signed URL, valid for
-    twenty-four hours, to the resulting audio file.
+  description: Generate an ultrasonic LISNR tone from a hexadecimal payload and return a signed URL, valid
+    for twenty-four hours, to the resulting audio file.
   source_operation: openapi/lisnr-tones-openapi-original.json#createTone
   action_class: acting
   consequence: write
   idempotent: false
-  agent_notes: >-
-    Not idempotent — each call mints a new artifact and consumes account quota. Validate the payload against
-    the profile byte limit before calling, and subtract the encryption overhead (2 bytes for zone66, 4 for
-    all other profiles) when encrypt is true.
+  agent_notes: Not idempotent — each call mints a new artifact and consumes account quota. Validate the
+    payload against the profile byte limit before calling, and subtract the encryption overhead (2 bytes
+    for zone66, 4 for all other profiles) when encrypt is true.
 - name: list_apps
   description: List the LISNR applications on the account.
   source_operation: openapi/lisnr-portal-openapi-derived.json#listApps
@@ -51,9 +47,8 @@ tools:
   consequence: read
   idempotent: true
 - name: get_account
-  description: >-
-    Get the account and its licensed products (legacy, radius, radius3, point, sda), which determine the
-    tone profiles available to an app.
+  description: Get the account and its licensed products (legacy, radius, radius3, point, sda), which
+    determine the tone profiles available to an app.
   source_operation: openapi/lisnr-portal-openapi-derived.json#listAccounts
   action_class: connected
   consequence: read
@@ -78,10 +73,9 @@ tools:
   consequence: read
   idempotent: true
 excluded_operations:
-  note: >-
-    These observed operations are deliberately left out of the candidate tool surface because they mint or
-    destroy credentials, or mutate users and billing state, and are not safe for autonomous agent execution
-    without a human in the loop.
+  note: These observed operations are deliberately left out of the candidate tool surface because they
+    mint or destroy credentials, or mutate users and billing state, and are not safe for autonomous agent
+    execution without a human in the loop.
   operations:
   - openapi/lisnr-portal-openapi-derived.json#createApiToken
   - openapi/lisnr-portal-openapi-derived.json#deleteApiToken
@@ -96,3 +90,9 @@ excluded_operations:
 related:
 - skills/_index.yml
 - conventions/lisnr-conventions.yml
+deployment:
+  mode: none
+  verified: derived
+  tools: 7
+  checked: '2026-08-12'
+  source: catalog MCP census

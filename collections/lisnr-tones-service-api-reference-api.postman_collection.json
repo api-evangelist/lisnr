@@ -1,0 +1,403 @@
+{
+  "item": [
+    {
+      "id": "63feb078-ebe9-4ccd-b116-f196aaa7c773",
+      "name": "Tones Service API Reference",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c29f36ce-2296-402c-b354-b1e7b1396715",
+          "name": "Create a Tone",
+          "request": {
+            "name": "Create a Tone",
+            "description": {
+              "content": "Returns a URL (valid for twenty-four hours) used to retrieve the tone. All tones have a bit depth of twenty-four bits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payload\": {\n    \"value\": \"reference #/components/PayloadProperty not found in the OpenAPI spec\"\n  },\n  \"profile\": \"<string>\",\n  \"format\": \"wav\",\n  \"zip\": true,\n  \"prependSilence\": false,\n  \"channel\": \"<integer>\",\n  \"tonelockType\": \"<string>\",\n  \"tonelockValue\": \"<string>\",\n  \"encrypt\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b1c7b1c6-719a-4b76-a4f5-9d5303c22f73",
+              "name": "Tone generated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"value\": \"reference #/components/PayloadProperty not found in the OpenAPI spec\"\n  },\n  \"profile\": \"point1000\",\n  \"format\": \"wav\",\n  \"zip\": true,\n  \"prependSilence\": false,\n  \"channel\": 0,\n  \"tonelockType\": \"account_based\",\n  \"tonelockValue\": \"2d5cbbc0-5e97-437c-aabc-5891f7a74683\",\n  \"encrypt\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://lisnr-tones-us-east-1.s3.amazonaws.com/radius3-point1000-f185cd4d-aed0-4813-b4e7-87b1ba8d13e7.wav?...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75247483-cc61-41e4-8d7d-4928cd38dc3b",
+              "name": "Invalid request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"value\": \"reference #/components/PayloadProperty not found in the OpenAPI spec\"\n  },\n  \"profile\": \"point1000\",\n  \"format\": \"wav\",\n  \"zip\": true,\n  \"prependSilence\": false,\n  \"channel\": 0,\n  \"tonelockType\": \"account_based\",\n  \"tonelockValue\": \"2d5cbbc0-5e97-437c-aabc-5891f7a74683\",\n  \"encrypt\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid request body.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47a78e5a-abbb-4f41-b562-d2610eedae3c",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"value\": \"reference #/components/PayloadProperty not found in the OpenAPI spec\"\n  },\n  \"profile\": \"point1000\",\n  \"format\": \"wav\",\n  \"zip\": true,\n  \"prependSilence\": false,\n  \"channel\": 0,\n  \"tonelockType\": \"account_based\",\n  \"tonelockValue\": \"2d5cbbc0-5e97-437c-aabc-5891f7a74683\",\n  \"encrypt\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c7c7424-8a1b-4d9f-bb9f-a66bed859bbb",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"value\": \"reference #/components/PayloadProperty not found in the OpenAPI spec\"\n  },\n  \"profile\": \"point1000\",\n  \"format\": \"wav\",\n  \"zip\": true,\n  \"prependSilence\": false,\n  \"channel\": 0,\n  \"tonelockType\": \"account_based\",\n  \"tonelockValue\": \"2d5cbbc0-5e97-437c-aabc-5891f7a74683\",\n  \"encrypt\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"User is not authorized to access this resource with an explicit deny.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f27b6919-0864-4fc6-9523-04cd3ea8b877",
+              "name": "Too many requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"value\": \"reference #/components/PayloadProperty not found in the OpenAPI spec\"\n  },\n  \"profile\": \"point1000\",\n  \"format\": \"wav\",\n  \"zip\": true,\n  \"prependSilence\": false,\n  \"channel\": 0,\n  \"tonelockType\": \"account_based\",\n  \"tonelockValue\": \"2d5cbbc0-5e97-437c-aabc-5891f7a74683\",\n  \"encrypt\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Too many requests.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf3ba376-9537-4ebe-bfd8-f561c54c9afb",
+              "name": "Failed to generate tone.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"value\": \"reference #/components/PayloadProperty not found in the OpenAPI spec\"\n  },\n  \"profile\": \"point1000\",\n  \"format\": \"wav\",\n  \"zip\": true,\n  \"prependSilence\": false,\n  \"channel\": 0,\n  \"tonelockType\": \"account_based\",\n  \"tonelockValue\": \"2d5cbbc0-5e97-437c-aabc-5891f7a74683\",\n  \"encrypt\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Tone creation failed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lisnr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "36f33b91-d9b8-4f4c-b25e-7c1ecadcffcb",
+    "name": "LISNR Portal API (observed) Accounts Tones Service API Reference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Unofficial OpenAPI description of the LISNR Portal API, DERIVED by the API Evangelist enrichment pipeline from the first-party LISNR Portal single-page application bundle (https://portal.lisnr.com/scripts/script.865ef81c.js, build 2025-12-16). Paths, HTTP methods, path/query parameters, the `Authorization: JWT <token>` scheme and the `{ result: ... }` response envelope are all OBSERVED from that first-party client. Request and response body schemas are NOT described here because LISNR does not publish them; nothing has been invented. LISNR publishes an official OpenAPI only for the Tones Service API (see openapi/lisnr-tones-openapi-original.json).\n\nContact Support:\n Name: LISNR Technical Support\n Email: techsupport@lisnr.com",
+      "type": "text/plain"
+    }
+  }
+}

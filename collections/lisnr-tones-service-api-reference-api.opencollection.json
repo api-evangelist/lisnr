@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LISNR Portal API (observed) Accounts Tones Service API Reference API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tones Service API Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Tone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lisnr.com/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a URL (valid for twenty-four hours) used to retrieve the tone. All tones have a bit depth of twenty-four bits."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

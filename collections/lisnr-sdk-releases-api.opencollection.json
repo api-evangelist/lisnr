@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LISNR Portal API (observed) Accounts SDK Releases API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SDK Releases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available SDK releases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lisnr.com/v2/sdk-releases",
+            "params": [
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns downloadable SDK releases, sample projects and documentation URLs. Supports platform and limit query parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

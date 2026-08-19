@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LISNR Portal API (observed) Accounts SDK Tokens API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SDK Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List SDK tokens for an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lisnr.com/v2/apps/:id/sdk-tokens",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List SDK tokens for an application"
+        },
+        {
+          "info": {
+            "name": "Create an SDK token for an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lisnr.com/v2/apps/:id/sdk-tokens",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "SDK tokens initialize the Radius object in the mobile/desktop SDKs."
+        },
+        {
+          "info": {
+            "name": "Delete an SDK token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lisnr.com/v2/apps/:id/sdk-tokens/:token_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an SDK token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
