@@ -50,6 +50,8 @@ apis:
   humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
   baseURL: https://tones.lisnr.com/
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -82,6 +84,8 @@ apis:
   humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
   baseURL: https://tones.lisnr.com/
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -130,6 +134,8 @@ apis:
   humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
   baseURL: https://tones.lisnr.com/
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -195,6 +201,8 @@ apis:
   humanURL: https://portal.lisnr.com/assets/tones-docs/tones-docs.html
   baseURL: https://tones.lisnr.com/
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
