@@ -11,6 +11,18 @@ description: >-
   downloadable 24-bit audio tone (WAV or MP3) from a hexadecimal payload for a chosen tone profile, with
   optional AES-256 payload encryption and ToneLock pairing so that only matching receivers can demodulate
   the tone.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
