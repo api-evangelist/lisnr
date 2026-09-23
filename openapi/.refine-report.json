@@ -1,35 +1,44 @@
 {
   "provider": "lisnr",
   "sources": [
-    "lisnr-accounts-api-openapi.yml",
-    "lisnr-api-tokens-api-openapi.yml",
-    "lisnr-applications-api-openapi.yml",
-    "lisnr-authentication-api-openapi.yml",
-    "lisnr-billing-api-openapi.yml",
-    "lisnr-notifications-api-openapi.yml",
-    "lisnr-sdk-releases-api-openapi.yml",
-    "lisnr-sdk-tokens-api-openapi.yml",
-    "lisnr-tones-service-api-reference-api-openapi.yml",
-    "lisnr-users-api-openapi.yml"
+    "_original/lisnr-portal-openapi-derived.json",
+    "_original/lisnr-tones-openapi-original.json"
   ],
   "outputs": [
-    "lisnr-accounts-api-openapi.yml",
     "lisnr-api-tokens-api-openapi.yml",
+    "lisnr-accounts-api-openapi.yml",
     "lisnr-applications-api-openapi.yml",
     "lisnr-authentication-api-openapi.yml",
     "lisnr-billing-api-openapi.yml",
     "lisnr-notifications-api-openapi.yml",
     "lisnr-sdk-releases-api-openapi.yml",
     "lisnr-sdk-tokens-api-openapi.yml",
-    "lisnr-tones-service-api-reference-api-openapi.yml",
-    "lisnr-users-api-openapi.yml"
+    "lisnr-users-api-openapi.yml",
+    "lisnr-tones-service-api-reference-api-openapi.yml"
   ],
   "archived": [],
-  "errors": [
-    "lisnr-tones-service-api-reference-api-openapi.yml: dangling $ref: #/components/APITokenHeader",
-    "lisnr-tones-service-api-reference-api-openapi.yml: dangling $ref: #/components/PayloadProperty"
+  "errors": [],
+  "warnings": [
+    "lisnr-tones-openapi-original.json: info.version missing"
   ],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lisnr-portal-openapi-derived.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "lisnr-tones-openapi-original.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "lisnr-tones-openapi-original.json: tagged paths POST / -> Tones Service API Reference",
+    "lisnr-tones-openapi-original.json: declared missing tag: Tones Service API Reference",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "lisnr-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-api-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-billing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-notifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-sdk-releases-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-sdk-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-tones-service-api-reference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lisnr-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
