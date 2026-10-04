@@ -64,20 +64,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      title: Error Schema
+    ForbiddenSchema:
+      title: Forbidden Schema
       type: object
       properties:
         message:
           type: string
-          example: Tone creation failed.
-    UnauthorizedSchema:
-      title: Unauthorized Schema
+          example: User is not authorized to access this resource with an explicit deny.
+    TooManyRequestsSchema:
+      title: Too Many Requests Schema
       type: object
       properties:
         message:
           type: string
-          example: Unauthorized.
+          example: Too many requests.
     InvalidRequestBodySchema:
       title: Invalid Request Body Schema
       type: object
@@ -85,6 +85,14 @@ components:
         message:
           type: string
           example: Invalid request body.
+    CreateToneResult:
+      title: Create Tone Result Schema
+      type: object
+      properties:
+        url:
+          type: string
+          description: Valid for twenty-four hours.
+          example: https://lisnr-tones-us-east-1.s3.amazonaws.com/radius3-point1000-f185cd4d-aed0-4813-b4e7-87b1ba8d13e7.wav?...
     CreateToneEvent:
       title: Create Tone Event Schema
       required:
@@ -146,25 +154,17 @@ components:
           example: false
           description: Whether the tone payload should be encrypted using AES256. In order to receive and demodulate the encrypted tone, the receiving application must initialize it's Radius object using an SDK token from the same account the API token was created from.
           default: false
-    TooManyRequestsSchema:
-      title: Too Many Requests Schema
+    Error:
+      title: Error Schema
       type: object
       properties:
         message:
           type: string
-          example: Too many requests.
-    CreateToneResult:
-      title: Create Tone Result Schema
-      type: object
-      properties:
-        url:
-          type: string
-          description: Valid for twenty-four hours.
-          example: https://lisnr-tones-us-east-1.s3.amazonaws.com/radius3-point1000-f185cd4d-aed0-4813-b4e7-87b1ba8d13e7.wav?...
-    ForbiddenSchema:
-      title: Forbidden Schema
+          example: Tone creation failed.
+    UnauthorizedSchema:
+      title: Unauthorized Schema
       type: object
       properties:
         message:
           type: string
-          example: User is not authorized to access this resource with an explicit deny.
+          example: Unauthorized.
