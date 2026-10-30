@@ -64,6 +64,127 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-LISNR is a company surfaced as a portfolio company of techstars and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+LISNR is a Cincinnati, Ohio company whose ultrasonic data-over-audio technology transmits data between devices using inaudible high-frequency tones instead of radio. Its Radius SDKs (Radius, Radius 3, Point, and the legacy and SDA product lines) embed a transmitter/receiver into iOS, Android, React Native, Linux and Windows applications so that a speaker and a microphone become a proximity data channel for contactless payment, identification, confirmation and device-pairing transactions. Developers work through the LISNR Portal, which issues per-application API tokens and SDK tokens, exposes SDK releases and sample projects, and provides a Tone Creator and a tone-speed calculator. The public Tones Service API generates a downloadable 24-bit audio tone (WAV or MP3) from a hexadecimal payload for a chosen tone profile, with optional AES-256 payload encryption and ToneLock pairing so that only matching receivers can demodulate the tone.
 
-Backed by: techstars — https://lisnr.com/
+**Areas:** Company · Ultrasonic · Data Over Audio · Proximity · Contactless Payments · Device Pairing · Identification · Audio · IoT · SDK
+
+## LISNR on APIs.io
+
+Everything profiled for LISNR is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lisnr/](https://apis.io/providers/lisnr/)** — or go straight to one of the APIs or properties below.
+
+### APIs (10)
+
+- [LISNR Accounts API](https://apis.io/apis/lisnr/lisnr-accounts-api/) — The Accounts API from LISNR — 1 operation(s) for accounts.
+- [LISNR API Tokens API](https://apis.io/apis/lisnr/lisnr-api-tokens-api/) — The API Tokens API from LISNR — 2 operation(s) for api tokens.
+- [LISNR Applications API](https://apis.io/apis/lisnr/lisnr-applications-api/) — The Applications API from LISNR — 2 operation(s) for applications.
+- [LISNR Authentication API](https://apis.io/apis/lisnr/lisnr-authentication-api/) — The Authentication API from LISNR — 5 operation(s) for authentication.
+- [LISNR Billing API](https://apis.io/apis/lisnr/lisnr-billing-api/) — The Billing API from LISNR — 1 operation(s) for billing.
+- [LISNR Notifications API](https://apis.io/apis/lisnr/lisnr-notifications-api/) — The Notifications API from LISNR — 2 operation(s) for notifications.
+- [LISNR SDK Releases API](https://apis.io/apis/lisnr/lisnr-sdk-releases-api/) — The SDK Releases API from LISNR — 1 operation(s) for sdk releases.
+- [LISNR SDK Tokens API](https://apis.io/apis/lisnr/lisnr-sdk-tokens-api/) — The SDK Tokens API from LISNR — 2 operation(s) for sdk tokens.
+- [LISNR Tones Service API Reference API](https://apis.io/apis/lisnr/lisnr-tones-service-api-reference-api/) — The Tones Service API Reference API from LISNR — 1 operation(s) for tones service api reference.
+- [LISNR Users API](https://apis.io/apis/lisnr/lisnr-users-api/) — The Users API from LISNR — 3 operation(s) for users.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [lisnr](https://apis.io/servers/lisnr/lisnr/)
+
+#### Collections (10)
+
+Postman and Open Collection request collections.
+
+- [LISNR Portal API (observed) Accounts API](https://apis.io/collections/lisnr/open-lisnr-accounts-api/)
+- [LISNR Portal API (observed) Accounts API Tokens API](https://apis.io/collections/lisnr/open-lisnr-api-tokens-api/)
+- [LISNR Portal API (observed) Accounts Applications API](https://apis.io/collections/lisnr/open-lisnr-applications-api/)
+- [LISNR Portal API (observed) Accounts Authentication API](https://apis.io/collections/lisnr/open-lisnr-authentication-api/)
+- [LISNR Portal API (observed) Accounts Billing API](https://apis.io/collections/lisnr/open-lisnr-billing-api/)
+- [LISNR Portal API (observed) Accounts Notifications API](https://apis.io/collections/lisnr/open-lisnr-notifications-api/)
+- [LISNR Portal API (observed) Accounts SDK Releases API](https://apis.io/collections/lisnr/open-lisnr-sdk-releases-api/)
+- [LISNR Portal API (observed) Accounts SDK Tokens API](https://apis.io/collections/lisnr/open-lisnr-sdk-tokens-api/)
+- [LISNR Portal API (observed) Accounts Tones Service API Reference API](https://apis.io/collections/lisnr/open-lisnr-tones-service-api-reference-api/)
+- [LISNR Portal API (observed) Accounts Users API](https://apis.io/collections/lisnr/open-lisnr-users-api/)
+
+#### Overlays (2)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Lisnr Portal Overlay](https://apis.io/overlays/lisnr/lisnr-portal-overlay/)
+- [Lisnr Tones Overlay](https://apis.io/overlays/lisnr/lisnr-tones-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lisnr Authentication](https://apis.io/security/lisnr/lisnr-authentication/)
+- [Lisnr Domain Security](https://apis.io/security/lisnr/lisnr-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://lisnr.com/)
+- [Documentation](https://portal.lisnr.com/developer-resources/)
+- [Getting started](https://portal.lisnr.com/help-center/getting-started/)
+- [API reference](https://portal.lisnr.com/assets/tones-docs/tones-docs.html)
+- [Sign up](https://portal.lisnr.com/)
+- [Support](https://lisnr1.atlassian.net/servicedesk/customer/portals)
+- [GitHub](https://github.com/lisnr)
+
+## API Evangelist rating
+
+**Kin Score 19.1** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 15.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 42.3 |
+| Access clarity | 0.0 |
+
+**Agent readiness 25.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.2** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lisnr/](https://apis.io/providers/lisnr/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for LISNR: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lisnr/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
